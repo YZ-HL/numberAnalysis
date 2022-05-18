@@ -1,0 +1,4 @@
+ToolSet: w64 9.0 (local)@C:\Users\vegetable1024\Desktop\CLion-2021.3.2.win\bin\mingw
+Options: 
+
+Options:-DCMAKE_MAKE_PROGRAM=C:/Users/vegetable1024/Desktop/CLion-2021.3.2.win/bin/ninja/win/ninja.exe

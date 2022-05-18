@@ -1,0 +1,4 @@
+C:\Users\vegetable1024\Desktop\CLion-2021.3.2.win\bin\cmake\win\bin\cmake.exe -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=C:/Users/vegetable1024/Desktop/CLion-2021.3.2.win/bin/ninja/win/ninja.exe -G Ninja C:\Users\vegetable1024\Desktop\NumberAnalysisThird
+-- Configuring done
+-- Generating done
+-- Build files have been written to: C:/Users/vegetable1024/Desktop/NumberAnalysisThird/cmake-build-debug

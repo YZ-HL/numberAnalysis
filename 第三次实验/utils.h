@@ -51,4 +51,9 @@ void printXi(std::vector<T> &result, int PC) {
     }
 }
 
+template<class R, class C, class... Args>
+constexpr size_t getFunctionArgsNum(R(C::*)(Args...)) {
+    return sizeof...(Args);
+}
+
 #endif

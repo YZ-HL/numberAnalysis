@@ -11,13 +11,15 @@ struct gauss {
     const long double eps = 1e-8;
 
     //传入Ax=b，求解线性方程组,返回自由变量的个数，-1代表无解
-    std::pair<std::vector<T>, int> eliminationWithColumnPivoting(matrix<T> &A, matrix<T> &b) {
+    std::pair<std::vector<T>, int>
+    eliminationWithColumnPivoting(matrix<T> &A, matrix<T> &b, std::vector<std::pair<int, int>> &swapStep) {
         auto resultG = constructAugmentedMatrix(A, b);
         if (!resultG.second) return {std::vector<T>(), -1};
         matrix<T> G = resultG.first;
         int r = 0, c = 0, n = G.n, m = G.m - 1;
         std::vector<T> xi(n);
         std::vector<bool> free_x(n);
+        swapStep.clear();
         while (r < n && c < m) {
             int mr = r;
             for (int i = r + 1; i < n; i++) {
@@ -29,6 +31,7 @@ struct gauss {
                 for (int j = c; j < m + 1; j++) {
                     std::swap(G[r][j], G[mr][j]);
                 }
+                swapStep.push_back({r, mr});
             }
             if (fabs(G[r][c]) < eps) {
                 G[r][c] = 0;

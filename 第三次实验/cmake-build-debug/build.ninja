@@ -65,6 +65,7 @@ build CMakeFiles/NumberAnalysisThird.dir/main.cpp.obj: CXX_COMPILER__NumberAnaly
 
 build NumberAnalysisThird.exe: CXX_EXECUTABLE_LINKER__NumberAnalysisThird_Debug CMakeFiles/NumberAnalysisThird.dir/main.cpp.obj
   FLAGS = -g
+  LINK_FLAGS = -static-libgcc -static-libstdc++
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\NumberAnalysisThird.dir
   POST_BUILD = cd .

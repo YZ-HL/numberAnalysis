@@ -18,6 +18,19 @@ struct matrix {
         G = std::vector<std::vector<T>>(n, std::vector<T>(m, 0));
     }
 
+    matrix<T> operator*(const matrix &a) {
+        if (m != a.n) return matrix<T>();
+        matrix<T> result(n, a.m);
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < a.m; j++) {
+                for (int k = 0; k < m; k++) {
+                    result[i][j] += G[i][k] * a.G[k][j];
+                }
+            }
+        }
+        return result;
+    }
+
     std::vector<T> &operator[](int k) { return G[k]; }
 
     //读入一个n*m的矩阵
@@ -92,6 +105,7 @@ struct matrix {
                 }
             }
             auto result_i = getDeterminant(recursionMatrix);
+            std::cout << result_i.first << '\n';
             if (result_i.second == false) return {std::vector<T>(), false};
             result.push_back(result_i.first);
         }

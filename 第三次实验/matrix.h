@@ -105,7 +105,6 @@ struct matrix {
                 }
             }
             auto result_i = getDeterminant(recursionMatrix);
-            std::cout << result_i.first << '\n';
             if (result_i.second == false) return {std::vector<T>(), false};
             result.push_back(result_i.first);
         }

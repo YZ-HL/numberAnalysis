@@ -1,0 +1,3 @@
+C:/Users/vegetable1024/Desktop/numberAnalysis/FG/cmake-build-debug/CMakeFiles/FG.dir
+C:/Users/vegetable1024/Desktop/numberAnalysis/FG/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/vegetable1024/Desktop/numberAnalysis/FG/cmake-build-debug/CMakeFiles/rebuild_cache.dir

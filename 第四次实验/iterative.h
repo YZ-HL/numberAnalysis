@@ -50,8 +50,8 @@ std::pair<std::vector<T>, size_t> Jacobi(matrix<T> A, matrix<T> b, T eps, T allo
         }
         eps_i = 0;
         for (size_t i = 0; i < sizB; i++) {
-            eps_i = std::max(eps_i, (T)fabs(xi_new[i] - xi_old[i]));
-            if (xi_new[i] > allowMaxValue) {
+            eps_i = std::max(eps_i, (T) fabs(xi_new[i] - xi_old[i]));
+            if ((T)fabs(xi_new[i]) > allowMaxValue) {
                 return {std::vector<T>(), 0};
             }
         }
@@ -69,7 +69,7 @@ std::pair<std::vector<T>, size_t> SOR(matrix<T> A, matrix<T> b, T mu, T eps, T a
     auto xi_new = std::vector<T>(sizB, 0);
 
     T eps_i = DBL_MAX;
-    size_t iterative_count = 0;
+    size_t iterative_count = 1;
     while (eps_i > eps) {
         iterative_count++;
         if (iterative_count > allowMaxIterativeCount) {
@@ -85,15 +85,12 @@ std::pair<std::vector<T>, size_t> SOR(matrix<T> A, matrix<T> b, T mu, T eps, T a
                 tmpValue -= A[i][j] * xi_old[j];
             }
             xi_new[i] += mu * tmpValue / A[i][i];
-            if (xi_new[i] > allowMaxValue) {
-                return {std::vector<T>(), 0};
-            }
         }
         eps_i = 0;
         for (size_t i = 0; i < sizB; i++) {
-            eps_i = std::max(eps_i, (T)fabs(xi_new[i] - xi_old[i]));
-            if (xi_new[i] > allowMaxValue) {
-                return {std::vector<T>(), -1};
+            eps_i = std::max(eps_i, (T) fabs(xi_new[i] - xi_old[i]));
+            if ((T)fabs(xi_new[i]) > allowMaxValue) {
+                return {std::vector<T>(), 0};
             }
         }
         xi_old = xi_new;

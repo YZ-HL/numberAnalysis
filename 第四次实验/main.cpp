@@ -4,11 +4,11 @@
 #include "utils.h"
 
 template<typename T>
-void checkResult(std::vector<T> solutionVector, int stepCount){
+void checkResult(std::vector<T> solutionVector, int stepCount) {
     if (stepCount > 0) {
         std::cout << "迭代次数: " << stepCount << '\n';
         std::cout << "解向量如下: \n";
-        printXi(solutionVector);
+        printXi(solutionVector, 10);
     } else {
         std::cout << "迭代过程中解的绝对值或迭代次数超过所指定的上限；可能原因：迭代不收敛，或所指定的上限值过小。" << '\n';
     }

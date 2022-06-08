@@ -1,3 +1,0 @@
-C:/Users/vegetable1024/Desktop/NumberAnalysisThird/cmake-build-debug/CMakeFiles/NumberAnalysisThird.dir
-C:/Users/vegetable1024/Desktop/NumberAnalysisThird/cmake-build-debug/CMakeFiles/edit_cache.dir
-C:/Users/vegetable1024/Desktop/NumberAnalysisThird/cmake-build-debug/CMakeFiles/rebuild_cache.dir

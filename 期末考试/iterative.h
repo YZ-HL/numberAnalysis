@@ -35,7 +35,7 @@ std::pair<std::vector<T>, size_t> Jacobi(matrix<T> A, matrix<T> b, T eps, T allo
 
     T eps_i = allowMaxValue;
     size_t iterative_count = 1;
-    while (eps_i > eps) {
+    while (eps_i >= eps) {
         iterative_count++;
         if (iterative_count > allowMaxIterativeCount) {
             return {std::vector<T>(), 0};
@@ -50,8 +50,8 @@ std::pair<std::vector<T>, size_t> Jacobi(matrix<T> A, matrix<T> b, T eps, T allo
         }
         eps_i = 0;
         for (size_t i = 0; i < sizB; i++) {
-            eps_i = std::max(eps_i, (T) Tabs(xi_new[i] - xi_old[i]));
-            if ((T) Tabs(xi_new[i]) > allowMaxValue) {
+            eps_i = std::max(eps_i, (T) T_abs(xi_new[i] - xi_old[i]));
+            if ((T) T_abs(xi_new[i]) > allowMaxValue) {
                 return {std::vector<T>(), 0};
             }
         }
@@ -70,7 +70,7 @@ std::pair<std::vector<T>, size_t> SOR(matrix<T> A, matrix<T> b, T mu, T eps, T a
 
     T eps_i = allowMaxValue;
     size_t iterative_count = 1;
-    while (eps_i > eps) {
+    while (eps_i >= eps) {
         iterative_count++;
         if (iterative_count > allowMaxIterativeCount) {
             return {std::vector<T>(), 0};
@@ -88,8 +88,8 @@ std::pair<std::vector<T>, size_t> SOR(matrix<T> A, matrix<T> b, T mu, T eps, T a
         }
         eps_i = 0;
         for (size_t i = 0; i < sizB; i++) {
-            eps_i = std::max(eps_i, (T) Tabs(xi_new[i] - xi_old[i]));
-            if ((T) Tabs(xi_new[i]) > allowMaxValue) {
+            eps_i = std::max(eps_i, (T) T_abs(xi_new[i] - xi_old[i]));
+            if ((T) T_abs(xi_new[i]) > allowMaxValue) {
                 return {std::vector<T>(), 0};
             }
         }
@@ -108,7 +108,7 @@ void checkDomain(T &val, const std::initializer_list<T> &xList) {
         isValid |= (left <= val && val < right);
     }
     if (isValid == false) {
-        throw std::domain_error("迭代过程中超出了函数定义域");
+        throw std::domain_error("The iterative process exceeds the function definition domain.");
     }
 }
 
@@ -118,31 +118,25 @@ void nextIteration(T &nowValue, T &lastValue, const F &fun) {
     nowValue = fun(nowValue);
 }
 
-//#define DEBUG_MODE
-
 template<typename T, typename F>
 std::pair<T, size_t> functionIteration(T nowValue, const F &fun, T eps, T allowMaxValue, std::initializer_list<T> xList) {
     iterativeBasicCheck(0, 0, eps, allowMaxValue);
     if (xList.size() % 2) {
-        throw std::invalid_argument("传入的定义域参数个数需为偶数");
+        throw std::invalid_argument("xList: The number of parameters to be passed in must be even.");
     }
     T lastVal = 0;
     nextIteration(nowValue, lastVal, fun);
     checkDomain(nowValue, xList);
     std::cout << std::fixed << std::setprecision(20) << "nowValue: " << nowValue << " " << "lastVal: " << lastVal << '\n';
     size_t iterative_count = 1;
-    while (Tabs(nowValue - lastVal) > eps) {
+    while (T_abs(nowValue - lastVal) > eps) {
         nextIteration(nowValue, lastVal, fun);
         checkDomain(nowValue, xList);
-        if (Tabs(nowValue) > allowMaxValue) {
-            throw std::domain_error("迭代函数不收敛，或allowMaxValue(值域上界)设置过小");
+        if (T_abs(nowValue) > allowMaxValue) {
+            throw std::domain_error(
+                "The iterative function does not converge, or allowMaxValue (upper bound on the value range) is set too small."
+            );
         }
-#ifdef DEBUG_MODE
-        //std::cout << "[DEBUG MODE]\n";
-        std::cout << std::fixed << std::setprecision(20) << "nowValue: " << nowValue << " " << "lastVal: " << lastVal << '\n';
-        //std::cout << std::fixed << std::setprecision(20) << "eps_new: " << Tabs(nowValue - lastVal) << " eps_old: " << eps << '\n';
-        //system("pause");
-#endif
         iterative_count++;
     }
     return {nowValue, iterative_count};

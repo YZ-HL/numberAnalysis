@@ -57,7 +57,7 @@ void printXi(std::vector<T> &result) {
 }
 
 template<typename T>
-T Tabs(T value) {
+T T_abs(T value) {
     return value >= 0 ? value : -value;
 }
 
